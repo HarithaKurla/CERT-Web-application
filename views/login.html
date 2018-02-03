@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>
+Login page</title>
+
+</head>
+<body>
+
+<h1  align="center">Login Here</h1>
+<table align="center">
+    <tr>
+	<td>Username</td>
+    <td><input type="text"  name"usename" id="username" placeholder="Enter Username"></td>
+	</tr>
+    <tr>
+	<td>Passoword</td>
+    <td><input type="text" name="password" id="password"  placeholder="Enter Password"></td>
+	</tr>
+    <tr>
+<td colspan="2" align="center"><button type="submit" onclick="Validate()">Login</button></td>
+</tr>
+<tr>
+<td><a href="signup.html">New User? Register Here</a></td>
+	<td></td>
+	</tr>
+   <tr>
+   <td> <a href="#">Forget Password</a></td>
+   <td></td>
+   </tr>
+</table>
+<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+  <script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+      function Validate()
+    {
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBrsdNDh4YfQxiPo319Vpc7tyjwTGVz2N0",
+    authDomain: "samplefirebaseapp-b03a2.firebaseapp.com",
+    databaseURL: "https://samplefirebaseapp-b03a2.firebaseio.com",
+    projectId: "samplefirebaseapp-b03a2",
+    storageBucket: "samplefirebaseapp-b03a2.appspot.com",
+    messagingSenderId: "237219902189"
+  };
+  firebase.initializeApp(config);
+  database = firebase.database();
+  var ref = database.ref("admin_details");
+  ref.on("value",gotData, errData);
+
+  function gotData(data){
+      var email=document.getElementById('username').value;
+      var password=document.getElementById('password').value;
+    console.log(data.val());
+    var details= data.val();
+    var keys=Object.keys(details);
+    console.log(keys);
+    for(var i=0;i<keys.length;i++)
+    {
+var k=keys[i];
+//console.log(details[k].student_email==email);
+//console.log(details[k].password==password);
+if(details[k].admin_email==email && details[k].password==password )
+{
+    alert("credentails are correct");
+	location.href = "HomePage.html";
+
+}
+else{
+    alert("incorrect password");
+}
+    }
+  }
+  function errData(err){
+      console.log('Error!');
+      console.log(err);
+
+  }
+  }
+  
+</script>
+
+
+  
+      
+
+
+</body>
+
+</html>
