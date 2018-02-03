@@ -1,0 +1,98 @@
+<html>
+
+<head>
+<title>SAmple FirebaseApp
+</title>
+<style>
+
+
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 50px;
+    left: 0;
+	background-color: lightgrey;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+.main {
+    margin-left: 200px;
+background-color:white;	/* Same as the width of the sidenav */
+}
+</style>
+<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCmGj7oGGC3dkZmAvf4Vx0mv3ePk_ZlS80",
+    authDomain: "student-registration-a89f5.firebaseapp.com",
+    databaseURL: "https://student-registration-a89f5.firebaseio.com",
+    projectId: "student-registration-a89f5",
+    storageBucket: "student-registration-a89f5.appspot.com",
+    messagingSenderId: "238660526223"
+  };
+  firebase.initializeApp(config);
+</script>
+</head>
+<body>
+
+<div class="row">
+<div>
+<h1 align="center" >CERT WEB APPLICATION</h1>
+</div>
+</div>
+<div class="row1">
+<div class="sidenav">
+ <h3><a href="ViewstudentDetails.html">View Student Details</a></h3>
+  <h3><a href="SendNotification.html">Send Notifications</a></h3>
+
+</div>
+
+<div class="main">
+ 
+<table >
+
+<tr>
+<td>Enter Message</td>
+<td><input type="textarea" name="message" colspan="3"></td>
+<td></td>
+</tr>
+
+
+</table>
+</div>
+</div>
+<script>
+
+var tblUsers=document.getElementById('tbl_users_list');
+var databaseref=firebase.database().ref('RegisteredStudents/');
+//document.getElementById('tbl_users_list').innerHTML="";
+
+var rowindex=1;
+databaseref.once('value',function(snapshot){
+snapshot.forEach(function (childSnapshot)
+{
+var childKey = childSnapshot.key;
+var childData = childSnapshot.val();
+
+var row=tblUsers.insertRow(rowindex);
+
+var cellfName= row.insertCell(0);
+var celllname= row.insertCell(1);
+var cellemail= row.insertCell(2);
+
+	
+cellfName.appendChild(document.createTextNode(childData.firstName));
+celllname.appendChild(document.createTextNode(childData.lastName));
+cellemail.appendChild(document.createTextNode(childData.email));
+
+rowindex=rowindex+1;
+});
+});
+rowindex=1;
+
+</script>
+</body>
+</html>

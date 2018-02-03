@@ -1,0 +1,138 @@
+<html>
+
+<head>
+<title>SAmple FirebaseApp
+</title>
+<style>
+
+
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 50px;
+    left: 0;
+	background-color: lightgrey;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+.main {
+    margin-left: 200px;
+background-color:white;	/* Same as the width of the sidenav */
+}
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCmGj7oGGC3dkZmAvf4Vx0mv3ePk_ZlS80",
+    authDomain: "student-registration-a89f5.firebaseapp.com",
+    databaseURL: "https://student-registration-a89f5.firebaseio.com",
+    projectId: "student-registration-a89f5",
+    storageBucket: "student-registration-a89f5.appspot.com",
+    messagingSenderId: "238660526223"
+  };
+  firebase.initializeApp(config);
+  
+  
+</script>
+</head>
+<body>
+
+<div class="row">
+<div>
+<h1 align="center" >ADMIN WEB APPLICATION</h1>
+</div>
+</div>
+<div class="row1">
+<div class="sidenav">
+  <h3><a href="ViewstudentDetails.html">View Student Details</a></h3>
+  <h3><a href="SendNotification.html">Send Notifications</a></h3>
+
+</div>
+
+<div class="main">
+  <h2>Welcome! </h2><h2 id="here"></h2>
+  <p id="token"></p>
+
+</div>
+</div>
+<script>
+ const messaging = firebase.messaging();
+ 
+   messaging.requestPermission()
+    .then(function() {
+      console.log('Notification permission granted.');
+      // TODO(developer): Retrieve an Instance ID token for use with FCM.
+      // [START_EXCLUDE]
+      // In many cases once an app has been granted notification permission, it
+      // should update its UI reflecting this.
+      resetUI();
+      // [END_EXCLUDE]
+    })
+    .catch(function(err) {
+      console.log('Unable to get permission to notify.', err);
+    });
+	
+	function resetUI() {
+    //clearMessages();
+    //showToken('loading...');
+    // [START get_token]
+    // Get Instance ID token. Initially this makes a network call, once retrieved
+    // subsequent calls to getToken will return from cache.
+    messaging.getToken()
+    .then(function(currentToken) {
+      if (currentToken) {
+        sendTokenToServer(currentToken);
+        updateUIForPushEnabled(currentToken);
+      } else {
+        // Show permission request.
+        console.log('No Instance ID token available. Request permission to generate one.');
+        // Show permission UI.
+        updateUIForPushPermissionRequired();
+        setTokenSentToServer(false);
+      }
+    })
+    .catch(function(err) {
+      console.log('An error occurred while retrieving token. ', err);
+      showToken('Error retrieving Instance ID token. ', err);
+      setTokenSentToServer(false);
+    });
+  }
+  // [END get_token]
+  function showToken(currentToken) {
+    // Show token in console and UI.
+    var tokenElement = document.querySelector('#token');
+    tokenElement.textContent = currentToken;
+  }
+	  function sendTokenToServer(currentToken) {
+    if (!isTokenSentToServer()) {
+      console.log('Sending token to server...');
+      // TODO(developer): Send the current token to your server.
+      setTokenSentToServer(true);
+    } else {
+      console.log('Token already sent to server so won\'t send it again ' +
+          'unless it changes');
+    }
+  }
+function clearMessages() {
+    const messagesElement = document.querySelector('#messages');
+    while (messagesElement.hasChildNodes()) {
+      messagesElement.removeChild(messagesElement.lastChild);
+    }
+  }
+  function updateUIForPushEnabled(currentToken) {
+    showHideDiv(tokenDivId, true);
+    showHideDiv(permissionDivId, false);
+    showToken(currentToken);
+  }
+ 
+  
+   function setTokenSentToServer(sent) {
+    window.localStorage.setItem('sentToServer', sent ? 1 : 0);
+  }
+</script>
+</body>
+</html>

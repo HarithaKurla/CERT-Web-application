@@ -1,0 +1,140 @@
+<html>
+
+<head>
+<title>SAmple FirebaseApp
+</title>
+<style>
+</style>
+<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBrsdNDh4YfQxiPo319Vpc7tyjwTGVz2N0",
+    authDomain: "samplefirebaseapp-b03a2.firebaseapp.com",
+    databaseURL: "https://samplefirebaseapp-b03a2.firebaseio.com",
+    projectId: "samplefirebaseapp-b03a2",
+    storageBucket: "samplefirebaseapp-b03a2.appspot.com",
+    messagingSenderId: "237219902189"
+  };
+  firebase.initializeApp(config);
+</script>
+</head>
+<body>
+<br>
+<div>
+<h1 align="center" >ADMIN WEB APPLICATION</h1>
+</div>
+
+<h3 align="center"> Register Here</h3>
+
+<h3 id="msg" align="center"></h3>
+<div class="login-box">
+<table align="center">
+<tr>
+<td>First Name
+</td>
+<td><input type="text" name="user_fname" id="user_fname"/>
+</td>
+</tr>
+<tr>
+<td>Last Name
+</td>
+<td><input type="text" name="user_lname" id="user_lname"/>
+</td>
+</tr>
+<tr>
+<td>Email Id
+</td>
+<td><input type="email" name="smail" id="smail"/>
+</td>
+</tr>
+<tr>
+<td>Phone Number
+</td>
+<td><input type="number" name="pnumber" id="pnumber"/>
+</td>
+</tr>
+<tr>
+<td>Address
+</td>
+<td><input type="text" name="address" id="address"/>
+</td>
+</tr>
+<tr>
+<td>Password
+</td>
+<td><input type="password" name="password" id="password"/>
+</td>
+</tr>
+<tr>
+<td>Confirm Password
+</td>
+<td><input type="password" name="cpassword" id="cpassword"/>
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+
+<input type="button" value="Register" onclick="register_user()"/>
+</td>
+</tr>
+</table>
+</div>
+
+<script>
+
+//var tblUsers=document.getElementById('tbl_users_list');
+var databaseref=firebase.database().ref('admin_details/');
+
+var rowindex=1;
+databaseref.once('value',function(snapshot){
+snapshot.forEach(function (childSnapshot)
+{
+var childKey = childSnapshot.key;
+var childData = childSnapshot.val();
+
+var row=tblUsers.insertRow(rowindex);
+var cellId= row.insertCell(0);
+var cellName= row.insertCell(1);
+
+cellId.appendChild(document.createTextNode(childKey));
+cellName.appendChild(document.createTextNode(childData.user_name));
+rowindex=rowindex+1;
+});
+});
+
+
+function register_user()
+{
+
+var user_fname=document.getElementById('user_fname').value;
+var user_lname=document.getElementById('user_lname').value;
+var smail=document.getElementById('smail').value;
+var pnumber=document.getElementById('pnumber').value;
+var address=document.getElementById('address').value;
+var password=document.getElementById('password').value;
+var cpassword=document.getElementById('cpassword').value;
+//var uid=firebase.database().ref().child('student_details').push().key;
+
+var data={
+admin_fname:user_fname,
+admin_lname:user_lname,
+admin_email:smail,
+phonenumber:pnumber,
+address:address,
+password:password,
+confirm_password:cpassword
+};
+var updates={};
+updates['/admin_details/'+user_lname+","+user_fname]=data;
+firebase.database().ref().update(updates);
+alert("The user is created successfuly");
+document.getElementById('msg').innerHTML="User has been registered successfully";
+ location.href = "login.html";
+}
+
+
+
+</script>
+</body>
+</html>
