@@ -17,8 +17,10 @@
     overflow-x: hidden;
     padding-top: 20px;
 }
+
 .main {
     margin-left: 200px;
+	margin-right:300px;
 background-color:white;	/* Same as the width of the sidenav */
 }
 </style>
@@ -52,12 +54,13 @@ background-color:white;	/* Same as the width of the sidenav */
 
 <div class="main">
   <h2>Welcome User!!</h2>
-<table id="tbl_users_list" border="1">
+<table id="tbl_users_list" border="1" width="20px">
 <thead>
 <tr>
 <td>First Name</td>
 <td>Last Name</td>
 <td>Email ID</td>
+<td style="width:130px">Image</td>
 </tr>
 </thead>
 
@@ -65,13 +68,9 @@ background-color:white;	/* Same as the width of the sidenav */
 </div>
 </div>
 <script>
-
 var tblUsers=document.getElementById('tbl_users_list');
-var databaseref=firebase.database().ref('RegisteredStudents/');
-//document.getElementById('tbl_users_list').innerHTML="";
-
-var rowindex=1;
-databaseref.once('value',function(snapshot){
+firebase.database().ref('/Student_Database/').once('value').then(function(snapshot)
+{
 snapshot.forEach(function (childSnapshot)
 {
 var childKey = childSnapshot.key;
@@ -82,12 +81,14 @@ var row=tblUsers.insertRow(rowindex);
 var cellfName= row.insertCell(0);
 var celllname= row.insertCell(1);
 var cellemail= row.insertCell(2);
-
+var cellimage= row.insertCell(3);
 	
 cellfName.appendChild(document.createTextNode(childData.firstName));
 celllname.appendChild(document.createTextNode(childData.lastName));
-cellemail.appendChild(document.createTextNode(childData.email));
-
+cellemail.appendChild(document.createTextNode(childData.emailId));
+var image=document.createElement("img");
+image.src=childData.imageURL;
+cellimage.appendChild(image);
 rowindex=rowindex+1;
 });
 });
