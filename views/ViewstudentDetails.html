@@ -61,6 +61,8 @@ background-color:white;	/* Same as the width of the sidenav */
 <th>Last Name</th>
 <th>Email ID</th>
 <th>Image</th>
+<td>Select</td>
+
 </tr>
 </thead>
 
@@ -82,15 +84,27 @@ var cellfName= row.insertCell(0);
 var celllname= row.insertCell(1);
 var cellemail= row.insertCell(2);
 var cellimage= row.insertCell(3);
+var cellCheck= row.insertCell(4);
+
+
 	
 cellfName.appendChild(document.createTextNode(childData.firstName));
 celllname.appendChild(document.createTextNode(childData.lastName));
-cellemail.appendChild(document.createTextNode(childData.emailId));
+cellemail.appendChild(document.createTextNode(childData.email));
 var image=document.createElement("img");
 image.src=childData.imageURL;
 image.style.width=250;
 image.style.height=120;
 cellimage.appendChild(image);
+var checkbox = document.createElement('input');
+checkbox.type = "checkbox";
+checkbox.name = "name";
+checkbox.value = "value";
+checkbox.id = "id";
+cellCheck.appendChild(checkbox);
+
+
+
 rowindex=rowindex+1;
 });
 });
