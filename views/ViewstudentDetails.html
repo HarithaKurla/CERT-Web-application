@@ -25,16 +25,16 @@
 background-color:white;	/* Same as the width of the sidenav */
 }
 </style>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"ï¿½integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 crossorigin="anonymous"></script> 
-
-<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
-<script src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/plug-ins/1.10.16/pagination/ellipses.js"></script> 
-<script type=text/javascript src="/dtable.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.16/pagination/ellipses.js"></script> 
+<script type=text/javascriptï¿½src="/dtable.js"></script> 
 <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
 
 
@@ -126,12 +126,9 @@ rowindex=rowindex+1;
 });
 });
 rowindex=1;
-$(function()
-{
-    console.log("Hiiiiiiiiiiii");
-    $('#tbl_users_list').dataTable({"paging":true});
-    
-})
+$(document).ready(function(){
+  $('#tbl_users_list').DataTable();
+});
 </script>
 </body>
 </html>
