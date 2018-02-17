@@ -66,7 +66,6 @@ crossorigin="anonymous"></script>
 </div>
 
 <div class="main">
-  <h2>Welcome User!!</h2>
 <table id="tbl_users_list" border="1" align="center">
 <thead>
 <tr>
@@ -107,7 +106,7 @@ var cellCheck= row.insertCell(4);
 	
 cellfName.appendChild(document.createTextNode(childData.firstName));
 celllname.appendChild(document.createTextNode(childData.lastName));
-cellemail.appendChild(document.createTextNode(childData.emailID));
+cellemail.appendChild(document.createTextNode(childData.emailId));
 var image=document.createElement("img");
 image.src=childData.imageURL;
 image.style.width=250;
@@ -127,7 +126,7 @@ rowindex=rowindex+1;
 });
 rowindex=1;
 $(document).ready(function(){
-  $('#tbl_users_list').DataTable();
+  $('#tbl_users_list').dataTable();
 });
 </script>
 </body>
