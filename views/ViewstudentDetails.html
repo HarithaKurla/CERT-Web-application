@@ -108,8 +108,10 @@ snapshot.forEach(function (childSnapshot)
 var childKey = childSnapshot.key;
 var childData = childSnapshot.val();
 
-var row=tblUsers.insertRow(rowindex);
 
+
+var row=tblUsers.insertRow(rowindex);
+//Adding coloumns in the table
 var cellfName= row.insertCell(0);
 var celllname= row.insertCell(1);
 var cellemail= row.insertCell(2);
