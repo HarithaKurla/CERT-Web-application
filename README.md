@@ -1,5 +1,10 @@
-Haritha--
-During this week i have worked on DevOps work shop and worked on based functionalities like modifying the datatables, password encryption and storing the images from the android app into the firebase.
+Project Name: CERT Web application
 
-Tilak--
-This week I have worked on deployment workshop.I am also working on download fuctionality.
+Team Members:
+Amarendar Reddy Reddygari
+Haritha Kurla
+Srinithya Kamareddy
+Tilak Vinuth Nag Dhulipalla
+Venkata Naga Mahesh Kumar Vankayala
+
+This is a emergency disaster management web application where the admin can see the disaster details and notify to the mobile users who are basically the CERT members.
