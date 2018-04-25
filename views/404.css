@@ -1,0 +1,14 @@
+body {
+  font:  Arial, sans-serif;
+  color: #444;
+  margin: 4em 0 0;
+  text-align: center;
+  background-color: lightgrey;
+  overflow: hidden;
+}
+#a.div {
+  font-size: 300px;
+  position: fixed;
+  left: 0;
+  top: 0;
+}

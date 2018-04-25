@@ -1,0 +1,140 @@
+<html>
+
+<head>
+<title>SAmple FirebaseApp
+</title>
+<style>
+
+
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 50px;
+    left: 0;
+	background-color: grey;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+
+.main {
+    margin-left: 200px;
+	margin-right:300px;
+background-color:white;	/* Same as the width of the sidenav */
+}
+</style>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"�integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+crossorigin="anonymous"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.16/pagination/ellipses.js"></script> 
+<script type=text/javascript�src="/dtable.js"></script> 
+<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCmGj7oGGC3dkZmAvf4Vx0mv3ePk_ZlS80",
+    authDomain: "student-registration-a89f5.firebaseapp.com",
+    databaseURL: "https://student-registration-a89f5.firebaseio.com",
+    projectId: "student-registration-a89f5",
+    storageBucket: "student-registration-a89f5.appspot.com",
+    messagingSenderId: "238660526223"
+  };
+  firebase.initializeApp(config);
+</script>
+</head>
+<body>
+
+<div class="row">
+<div>
+<h1 align="center" >CERT WEB APPLICATION</h1>
+</div>
+</div>
+<div class="row1">
+<div class="sidenav">
+  <h3><a href="ViewstudentDetails.html" onclick="show_details()">View Student Details</a></h3>
+  <h3><a href="SendNotification.html">Send Notifications</a></h3>
+
+</div>
+
+<div class="main">
+<div>
+<input type="submit" name="submit" value="Submit" onclick="formDatatable()">
+</div>
+<table id="tbl_users_list" border="1" align="center">
+<thead>
+<tr>
+<th>First Name</th>
+<th>Last Name</th>
+<th>Email ID</th>
+<th>Image</th>
+<td>Select</td>
+
+</tr>
+</thead>
+
+</table>
+</div>
+</div>
+<script>
+ 
+ 
+  
+  
+var tblUsers=document.getElementById('tbl_users_list');
+firebase.database().ref('/Student_Database/').once('value').then(function(snapshot)
+{
+snapshot.forEach(function (childSnapshot)
+{
+var childKey = childSnapshot.key;
+var childData = childSnapshot.val();
+
+var row=tblUsers.insertRow(rowindex);
+
+var cellfName= row.insertCell(0);
+var celllname= row.insertCell(1);
+var cellemail= row.insertCell(2);
+var cellimage= row.insertCell(3);
+var cellCheck= row.insertCell(4);
+
+
+	
+cellfName.appendChild(document.createTextNode(childData.firstName));
+celllname.appendChild(document.createTextNode(childData.lastName));
+cellemail.appendChild(document.createTextNode(childData.emailId));
+var image=document.createElement("img");
+image.src=childData.imageURL;
+image.style.width=250;
+image.style.height=120;
+cellimage.appendChild(image);
+var checkbox = document.createElement('input');
+checkbox.type = "checkbox";
+checkbox.name = "name";
+checkbox.value = "value";
+checkbox.id = "id";
+cellCheck.appendChild(checkbox);
+
+
+
+rowindex=rowindex+1;
+});
+});
+rowindex=1;
+
+function formDatatable()
+{
+$(document).ready(function(){
+  $('#tbl_users_list').DataTable();
+});
+}
+</script>
+</body>
+</html>

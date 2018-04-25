@@ -3,8 +3,44 @@
 <head>
 <title>Sample FirebaseApp
 </title>
-<style>
-</style>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="mdb.min.css" rel="stylesheet">
+	<style>
+			/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+	
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+	float:right;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+    </style>
 <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
@@ -21,68 +57,212 @@
 </script>
 </head>
 <body>
-<br>
+<div class="topnav">
+  <a class="active" href="login.html">Signin</a>
+  <a href="signup.html">Signup</a>
+ 
+</div>
 <div>
-<h1 align="center" >ADMIN WEB APPLICATION</h1>
+<br>
+<h1  align="center">CERT Web Application</h1>
+
+<p id="msg" align="center" style="color:green"></p>
+
 </div>
 
-<h3 align="center"> Register Here</h3>
+     
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    </div>
 
-<h3 id="msg" align="center"></h3>
-<div class="login-box">
-<table align="center">
-<tr>
-<td>First Name
-</td>
-<td><input type="text" name="user_fname" id="user_fname"/>
-</td>
-</tr>
-<tr>
-<td>Last Name
-</td>
-<td><input type="text" name="user_lname" id="user_lname"/>
-</td>
-</tr>
-<tr>
-<td>Email Id
-</td>
-<td><input type="email" name="smail" id="smail"/>
-</td>
-</tr>
-<tr>
-<td>Phone Number
-</td>
-<td><input type="number" name="pnumber" id="pnumber"/>
-</td>
-</tr>
-<tr>
-<td>Address
-</td>
-<td><input type="text" name="address" id="address"/>
-</td>
-</tr>
-<tr>
-<td>Password
-</td>
-<td><input type="password" name="password" id="password"/>
-</td>
-</tr>
-<tr>
-<td>Confirm Password
-</td>
-<td><input type="password" name="cpassword" id="cpassword"/>
-</td>
-</tr>
-<tr>
-<td colspan="2" align="center">
+                    <div class="col-sm-8">
+                     
+                            
+                                <div class="col-sm-6">
+                                
+                                <br>
+                               
+                                <br></div>
+                                
+                            <!-- <div class="row"> -->
+                                        <div class="col-sm-6">
+                                                <div class="md-form"> 
+                                        <i class="fa fa-envelope prefix grey-text">*</i>
+                                        <input type = "email" id="orangeForm-email" placeholder="Enter email id" class="form-control" name="emailid" onblur="validateUsername()" required="">
+                                    </div> 
+                                     <!-- </div> -->
+                                       <!-- <div class="col-sm-6"> -->
 
-<input type="button" value="Register" onclick="register_user()"/>
-</td>
-</tr>
-</table>
-</div>
+                                        <p id="msg1" style="color:red"></p>
+                                       <!-- </div> -->
+                                    <!-- </div> -->
+                                    </div>
+                                       
+                                       
+
+                                    <!-- <div class="row"> -->
+                                            <div class="col-sm-6">       
+                                <div class="md-form">
+                                    <i class="fa fa-user prefix grey-text">*</i>
+                                    <input type="text" placeholder="Enter Firstname" id="orangeForm-fname" name="name" class="form-control" onblur= "fname()" required="">
+                                  
+                                <!-- </div> -->
+                            </div>
+                                                                    <!-- <div class="col-sm-6"> -->
+                                                                    <p id="msg2" style="color:red"></p>
+                                                                   <!-- </div> -->
+                                                                <!-- </div> -->
+                                                                </div>
+                                   <!-- <div class="row"> -->
+                                            <div class="col-sm-6">                                 
+
+                                <div class="md-form">
+                                        <i class="fa fa-user prefix grey-text">*</i>
+                                        <input type="text" placeholder="Enter Lastname" id="orangeForm-lname" name="lastname" class="form-control" onblur="lname()" required="">
+                                        
+                                    <!-- </div> -->
+                                </div>
+                                
+                                                                        <!-- <div class="col-sm-6"> -->
+                                                                        <p id="msg3" style="color:red"></p>
+                                                                       <!-- </div> -->
+                                                                    </div>
+                                                                <!-- </div> -->
+
+                                   <!-- <div class="row"> -->
+                                            <div class="col-sm-6">                            
+                                <div class="md-form">
+                                    <i class="fa fa-lock prefix grey-text">*</i>
+                                    <input type="password" placeholder="Enter Password" id="orangeForm-pass" class="form-control" name="password" onblur="validatePassword()" required="true">
+                                   
+                                <!-- </div> -->
+                            </div>
+                                                                    <!-- <div class="col-sm-6"> -->
+                                                                    <p id="msg4" style="color:red"></p>
+                                                                   <!-- </div> -->
+                                                                <!-- </div> -->
+                                                                </div>
+                                
+                                  <!-- <div class="row"> -->
+                                            <div class="col-sm-6">                                  
+                                <div class="md-form">
+                                    <i class="fa fa-lock prefix grey-text">*</i>
+                                    <input type="password" placeholder="Enter Confirm Password" id="orangeForm-pass1" class="form-control" name="cpassword" onblur="confirmPassword()" required="true">
+                                   
+                                <!-- </div> -->
+                            </div>                            
+                            
+                                                                    <!-- <div class="col-sm-6"> -->
+                                                                    <p id="msg5" style="color:red"></p>
+                                                                   <!-- </div> -->
+                                                                <!-- </div> -->
+                                                                </div>
+
+                              <div class="col-sm-6">                               
+                                <div class="text-center">
+								 <p class="h5 text-center mb-4" ><center><h6 style="color:black">* fields are mandatory</h1></center></p>
+                                    <input type="button" class="btn btn-primary btn-lg" value="Sign Up" onclick="register_user()">
+                                    <!-- <button class="btn btn-deep-orange">Sign up</button> -->
+                                </div>
+                                </div>
+                            </div>
+                            
+                            
+                            </form>
+                        </div>
+                        <!-- </div> -->
+                        </div>
+                        
 
 <script>
+
+function fname(){
+            var msg="";
+            var regn=/^[A-Za-z]+$/;
+            var n = document.getElementById('orangeForm-name').value;
+           
+            if(regn.test(n)){
+                
+                msg="";
+            }
+            else{
+                msg= "Please enter first name";
+            }
+            document.getElementById("msg2").innerHTML=msg;
+
+        }
+
+        function lname(){
+            var msg="";
+            var regn=/^[A-Za-z]+$/;
+            var n = document.getElementById('orangeForm-name').value;
+            console.log("value"+n);
+            if(regn.test(n)){
+                
+                msg="";
+            }
+            else{
+                msg= "Please enter last name";
+            }
+            document.getElementById("msg3").innerHTML=msg;
+
+        }
+            function validatePassword() {
+                var msg="";
+                var rege2 = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20}/;
+                // var rege = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/;
+                var y = document.getElementById('orangeForm-pass').value;
+                if (rege2.test(y)) {
+                    
+                    msg="";
+                }
+                else
+                {
+                   
+                    msg="Please enter valid password";
+        
+                }
+                document.getElementById("msg4").innerHTML=msg;
+            }
+        
+            function validateUsername() {
+                var msg="";
+                var rege = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+                // var rege = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/;
+                var x = document.getElementById('orangeForm-email').value;
+                if (rege.test(x)) {
+  
+                    msg = "";
+                    
+                }
+                else
+                {
+                    
+                    msg="please enter valid email";
+        
+                }
+
+                 document.getElementById("msg1").innerHTML=msg;
+                // console.log("abc");
+        
+            }
+
+            function confirmPassword(){
+                var msg="";
+               var y = document.getElementById('orangeForm-pass').value;
+               var y1 = document.getElementById('orangeForm-pass1').value;
+                if(y == y1){
+                    
+                    msg = "";
+                }
+                else{
+                   
+                msg="Passwords did not match";
+                }
+                document.getElementById("msg5").innerHTML=msg;
+            }
+      
 
 //var tblUsers=document.getElementById('tbl_users_list');
 var databaseref=firebase.database().ref('admin_details/');
@@ -108,30 +288,26 @@ rowindex=rowindex+1;
 function register_user()
 {
 
-var user_fname=document.getElementById('user_fname').value;
-var user_lname=document.getElementById('user_lname').value;
-var smail=document.getElementById('smail').value;
-var pnumber=document.getElementById('pnumber').value;
-var address=document.getElementById('address').value;
-var password=document.getElementById('password').value;
-var cpassword=document.getElementById('cpassword').value;
+var user_fname=document.getElementById('orangeForm-fname').value;
+var user_lname=document.getElementById('orangeForm-lname').value;
+var smail=document.getElementById('orangeForm-email').value;
+var smail1 = smail.toLowerCase();
+var password=document.getElementById('orangeForm-pass').value;
+var cpassword=document.getElementById('orangeForm-pass1').value;
 //var uid=firebase.database().ref().child('student_details').push().key;
 
 var data={
 admin_fname:user_fname,
 admin_lname:user_lname,
-admin_email:smail,
-phonenumber:pnumber,
-address:address,
+admin_email:smail1,
 password:password,
 confirm_password:cpassword
 };
 var updates={};
 updates['/admin_details/'+user_lname+","+user_fname]=data;
 firebase.database().ref().update(updates);
-alert("The user is created successfuly");
-document.getElementById('msg').innerHTML="User has been registered successfully";
- location.href = "login.html";
+document.getElementById('msg').innerHTML= user_fname+" has been registered successfully";
+ //location.href = "login.html";
 }
 
 

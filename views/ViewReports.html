@@ -1,0 +1,153 @@
+<html>
+
+<head>
+<title>SAmple FirebaseApp
+</title>
+<style>
+
+
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 50px;
+    left: 0;
+	background-color: lightgrey;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+#tableContainer
+{
+top : 150px;
+left: 200px;
+
+
+}
+.main {
+    margin-left: 200px;
+background-color:white;	/* Same as the width of the sidenav */
+}
+		/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+	
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+	float:right;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> 
+<script src="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+crossorigin="anonymous"></script> 
+<script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"></script>
+<script>
+  var config = {
+            apiKey: "AIzaSyCLNrifwzNsUeehxurAuz_OLdMH-wiVV30",
+            authDomain: "emergencydisastermanagement.firebaseapp.com",
+            databaseURL: "https://emergencydisastermanagement.firebaseio.com",
+            projectId: "emergencydisastermanagement",
+            storageBucket: "emergencydisastermanagement.appspot.com",
+            messagingSenderId: "514657484511"
+        };
+        // firebase.initializeApp(config);
+        firebase.initializeApp(config);
+
+        var storage = firebase.storage();
+		console.log(storage.ref);
+        var imageRef = storage.ref('disasterone.jpg');
+        var imagetworef = storage.ref('disastertwo.jpg');
+        var urlfromfirebase;
+        console.log('right before gettig download url');
+        imageRef.getDownloadURL().then(function (url) {
+            console.log('i have just found the url for the image');
+            console.log(url);
+            urlfromfirebase = url;
+            document.getElementById("img1").src = url;
+        });
+  
+</script>
+</head>
+<body>
+
+<div class="topnav">
+<a href="login.html">Logout</a>
+<a class="active" href="ViewCertMembersDetails.html">View Cert Members</a>
+</div>
+<div class="row">
+<br>
+<h1  align="center">CERT Member Details</h1>
+</div>
+<div class="row2">
+<div class="col-sm-3">
+</div>
+<div id="tableContainer" style="height: 600px; width:800px; align:center;" >
+
+<div class="col-sm-7">
+<table id="studentable" border="1" align="center">
+<thead>
+<tr>
+<th>Select</th>
+<th>First Name</th>
+<th>Last Name</th>
+<th>Email ID</th>
+<th>Image</th>
+</tr>
+</thead>
+<tbody id="stutab"></tbody>
+</table>
+<img id="img1">
+</div>
+</div>
+<div class="col-sm-2">
+</div>
+
+</div>
+
+<script>
+
+$('#studentable').DataTable();
+
+
+
+</script>
+</body>
+</html>

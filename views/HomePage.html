@@ -17,13 +17,76 @@
     overflow-x: hidden;
     padding-top: 20px;
 }
+#tableContainer{
+    text-align:center; 
+    margin-left:auto; 
+    margin-right:auto; 
+}
 .main {
     margin-left: 200px;
 background-color:white;	/* Same as the width of the sidenav */
 }
+		/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+	
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+	float:right;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
 </style>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+crossorigin="anonymous"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> 
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.3/js/buttons.html5.min.js"></script>
+
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
 <script>
   // Initialize Firebase
   var config = {
@@ -41,98 +104,102 @@ background-color:white;	/* Same as the width of the sidenav */
 </head>
 <body>
 
-<div class="row">
+<div class="topnav">
+<a href="login.html">Logout</a>
+<a class="active" href="ViewCertMembersDetails.html">View Cert Members</a>
+</div>
 <div>
-<h1 align="center" >ADMIN WEB APPLICATION</h1>
-</div>
-</div>
-<div class="row1">
-<div class="sidenav">
-  <h3><a href="ViewstudentDetails.html">View Student Details</a></h3>
-  <h3><a href="SendNotification.html">Send Notifications</a></h3>
-
+<br>
+<h1  align="center">CERT Member Details</h1>
 </div>
 
-<div class="main">
-  <h2>Welcome! </h2><h2 id="here"></h2>
-  <p id="token"></p>
+<div id="tableContainer" style="height: 600px; width:800px " >
 
+<table id="studentable" border="1" align="center" >
+<thead>
+<tr>
+<th>Select</th>
+<th>First Name</th>
+<th>Last Name</th>
+<th>Email ID</th>
+<th>Image</th>
+</tr>
+</thead>
+<tbody id="stutab"></tbody>
+</table>
 </div>
-</div>
+
 <script>
- const messaging = firebase.messaging();
+var tableBody = document.getElementById("stutab")
+firebase.database().ref('/Student_Database/').once('value').then(function(snapshot)
+{
+snapshot.forEach(function (childSnapshot)
+{
+var tr = document.createElement('TR');
+var childData = childSnapshot.val();
+//var size = Object.keys(childData).length;
+
+			var td = document.createElement('TD')
+			var checkbox = document.createElement('input');
+			checkbox.type = "checkbox";
+			checkbox.name = "name";
+			checkbox.value = "value";
+			checkbox.id = "id";
+            td.appendChild(checkbox);
+            tr.appendChild(td)
+
+            var td = document.createElement('TD')
+            td.appendChild(document.createTextNode(childData.firstName));
+            tr.appendChild(td)
+			var td = document.createElement('TD')
+            td.appendChild(document.createTextNode(childData.lastName));
+            tr.appendChild(td)
+			var td = document.createElement('TD')
+            td.appendChild(document.createTextNode(childData.emailId));
+            tr.appendChild(td)
+
+			var td = document.createElement('TD')
+			var image=document.createElement("img");
+			image.src=childData.imageURL;
+			image.style.width=250;
+			image.style.height=120;
+            td.appendChild(image);
+            tr.appendChild(td)
+			
+        tableBody.appendChild(tr);
+});
+
+var table1= $('#studentable').DataTable({
  
-   messaging.requestPermission()
-    .then(function() {
-      console.log('Notification permission granted.');
-      // TODO(developer): Retrieve an Instance ID token for use with FCM.
-      // [START_EXCLUDE]
-      // In many cases once an app has been granted notification permission, it
-      // should update its UI reflecting this.
-      resetUI();
-      // [END_EXCLUDE]
-    })
-    .catch(function(err) {
-      console.log('Unable to get permission to notify.', err);
-    });
-	
-	function resetUI() {
-    //clearMessages();
-    //showToken('loading...');
-    // [START get_token]
-    // Get Instance ID token. Initially this makes a network call, once retrieved
-    // subsequent calls to getToken will return from cache.
-    messaging.getToken()
-    .then(function(currentToken) {
-      if (currentToken) {
-        sendTokenToServer(currentToken);
-        updateUIForPushEnabled(currentToken);
-      } else {
-        // Show permission request.
-        console.log('No Instance ID token available. Request permission to generate one.');
-        // Show permission UI.
-        updateUIForPushPermissionRequired();
-        setTokenSentToServer(false);
-      }
-    })
-    .catch(function(err) {
-      console.log('An error occurred while retrieving token. ', err);
-      showToken('Error retrieving Instance ID token. ', err);
-      setTokenSentToServer(false);
-    });
-  }
-  // [END get_token]
-  function showToken(currentToken) {
-    // Show token in console and UI.
-    var tokenElement = document.querySelector('#token');
-    tokenElement.textContent = currentToken;
-  }
-	  function sendTokenToServer(currentToken) {
-    if (!isTokenSentToServer()) {
-      console.log('Sending token to server...');
-      // TODO(developer): Send the current token to your server.
-      setTokenSentToServer(true);
-    } else {
-      console.log('Token already sent to server so won\'t send it again ' +
-          'unless it changes');
-    }
-  }
-function clearMessages() {
-    const messagesElement = document.querySelector('#messages');
-    while (messagesElement.hasChildNodes()) {
-      messagesElement.removeChild(messagesElement.lastChild);
-    }
-  }
-  function updateUIForPushEnabled(currentToken) {
-    showHideDiv(tokenDivId, true);
-    showHideDiv(permissionDivId, false);
-    showToken(currentToken);
-  }
- 
-  
-   function setTokenSentToServer(sent) {
-    window.localStorage.setItem('sentToServer', sent ? 1 : 0);
-  }
+buttons: [
+{
+extend: 'excel',
+text: 'EXCEL',
+className: 'excelButton',
+title: null,
+exportOptions: {
+modifier: {
+search: 'applied',
+
+},
+columns: [1, 2, 3]
+}
+}
+
+]
+});
+
+table1.buttons(0, null).container().prependTo(
+table1.table().container()
+); 
+
+})  
+
+
+
+
 </script>
+
+
 </body>
 </html>
